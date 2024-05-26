@@ -26,14 +26,13 @@
 	path = OmniKit
 	url = https://github.com/LoopKit/OmniKit.git
 	branch = main
-[submodule "MinimedKit"]
-	path = MinimedKit
-	url = https://github.com/LoopKit/MinimedKit.git
-	branch = main
 [submodule "LibreTransmitter"]
 	path = LibreTransmitter
 	url = https://github.com/LoopKit/LibreTransmitter.git
 	branch = main
+[submodule "MinimedKit"]
+	path = MinimedKit
+	url = https://github.com/LoopKit/MinimedKit.git
 [submodule "TidepoolService"]
 	path = TidepoolService
 	url = https://github.com/LoopKit/TidepoolService.git
