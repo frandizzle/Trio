@@ -174,7 +174,7 @@ extension Home {
                 lastLoopDate: $state.lastLoopDate,
                 manualTempBasal: $state.manualTempBasal
             ).onTapGesture {
-                isStatusPopupPresented = true
+                isStatusPopupPresented.toggle()
             }.onLongPressGesture {
                 let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                 impactHeavy.impactOccurred()
