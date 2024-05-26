@@ -177,11 +177,35 @@ extension DataTable {
 
         @ViewBuilder private func treatmentView(_ item: Treatment) -> some View {
             HStack {
-                if item.type == .bolus || item.type == .carbs {
-                    Image(systemName: "circle.fill").foregroundColor(item.color).padding(.vertical)
-                } else {
-                    Image(systemName: "circle.fill").foregroundColor(item.color)
+                ZStack {
+                    if item.isSMB ?? false {
+                        Image(systemName: "arrowtriangle.down.fill")
+                            .foregroundColor(item.color)
+                        Image(systemName: "circle.fill")
+                            .opacity(0.0)
+                    } else if item.isExternal ?? false {
+                        Image(systemName: "rhombus.fill")
+                            .foregroundColor(Color.red)
+                        Image(systemName: "rhombus")
+                            .foregroundColor(Color.primary.opacity(0.8))
+                        Image(systemName: "circle.fill")
+                            .opacity(0.0)
+                    } else { Image(systemName: "circle.fill")
+                        .foregroundColor(item.color)
+                    }
+                    if item
+                        .type == .tempTarget
+                    { Image(systemName: "circle")
+                        .foregroundColor(Color.basal)
+                    }
+                    if item
+                        .type == .fpus
+                    { Image(systemName: "circle")
+                        .foregroundColor(Color.loopYellow)
+                    }
                 }
+//                Text(dateFormatter.string(from: item.date))
+//                    .moveDisabled(true)
                 Text((item.isSMB ?? false) ? "SMB" : item.type.name)
                 Text(item.amountText).foregroundColor(.secondary)
                 if let duration = item.durationText {
