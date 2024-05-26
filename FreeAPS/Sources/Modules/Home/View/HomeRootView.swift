@@ -580,7 +580,7 @@ extension Home {
                             DragGesture(minimumDistance: 10, coordinateSpace: .local)
                                 .onEnded { value in
                                     if value.translation.height < 0 {
-                                        state.isStatusPopupPresented = false
+                                        isStatusPopupPresented = false
                                     }
                                 }
                         )
