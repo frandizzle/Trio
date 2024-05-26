@@ -101,18 +101,28 @@ extension Home {
         var cobIobView: some View {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    Text("IOB").font(.footnote).foregroundColor(.secondary)
+//                    Text("COB").font(.caption2).foregroundColor(.secondary)
+                    Image("premeal")
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 12, height: 12)
+                        .foregroundColor(.loopYellow)
                     Text(
-                        (numberFormatter.string(from: (state.suggestion?.iob ?? 0) as NSNumber) ?? "0") +
-                            NSLocalizedString(" U", comment: "Insulin unit")
+                        (numberFormatter.string(from: (state.suggestion?.cob ?? 0) as NSNumber) ?? "0") +
+                            NSLocalizedString(" g", comment: "gram of carbs")
                     )
                     .font(.footnote).fontWeight(.bold)
                 }.frame(alignment: .top)
                 HStack {
-                    Text("COB").font(.footnote).foregroundColor(.secondary)
+//                    Text("IOB").font(.caption2).foregroundColor(.secondary)
+                    Image("bolus1")
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 12, height: 12)
+                        .foregroundColor(.insulin)
                     Text(
-                        (numberFormatter.string(from: (state.suggestion?.cob ?? 0) as NSNumber) ?? "0") +
-                            NSLocalizedString(" g", comment: "gram of carbs")
+                        (numberFormatter.string(from: (state.suggestion?.iob ?? 0) as NSNumber) ?? "0") +
+                            NSLocalizedString(" U", comment: "Insulin unit")
                     )
                     .font(.footnote).fontWeight(.bold)
                 }.frame(alignment: .bottom)
@@ -312,36 +322,43 @@ extension Home {
         var legendPanel: some View {
             ZStack {
                 HStack(alignment: .center) {
+//                    Group {
+//                        Circle().fill(Color.loopGreen).frame(width: 8, height: 8)
+//                        Text("BG")
+//                            .font(.system(size: 12, weight: .bold)).foregroundColor(.loopGreen)
+//                    }
                     Group {
-                        Circle().fill(Color.loopGreen).frame(width: 8, height: 8)
-                        Text("BG")
-                            .font(.system(size: 12, weight: .bold)).foregroundColor(.loopGreen)
+                        Text(
+                            "TDD " + (numberFormatter.string(from: (state.suggestion?.tdd ?? 0) as NSNumber) ?? "0")
+                        ).font(.system(size: 12, weight: .bold)).foregroundColor(.insulin)
+                        Text(
+                            "ytd. " + (numberFormatter.string(from: (state.suggestion?.tddytd ?? 0) as NSNumber) ?? "0")
+                        ).font(.system(size: 12, weight: .regular)).foregroundColor(.insulin)
                     }
+                    Text(" | ").foregroundColor(.secondary)
+                        .font(.system(size: 12, weight: .light))
                     Group {
                         Circle().fill(Color.insulin).frame(width: 8, height: 8)
-                            .padding(.leading, 8)
                         Text("IOB")
                             .font(.system(size: 12, weight: .bold)).foregroundColor(.insulin)
                     }
                     Group {
                         Circle().fill(Color.zt).frame(width: 8, height: 8)
-                            .padding(.leading, 8)
                         Text("ZT")
                             .font(.system(size: 12, weight: .bold)).foregroundColor(.zt)
                     }
                     Group {
                         Circle().fill(Color.loopYellow).frame(width: 8, height: 8)
-                            .padding(.leading, 8)
                         Text("COB")
                             .font(.system(size: 12, weight: .bold)).foregroundColor(.loopYellow)
                     }
                     Group {
                         Circle().fill(Color.uam).frame(width: 8, height: 8)
-                            .padding(.leading, 8)
                         Text("UAM")
                             .font(.system(size: 12, weight: .bold)).foregroundColor(.uam)
                     }
-
+                    Text(" | ").foregroundColor(.secondary)
+                        .font(.system(size: 12, weight: .light))
                     if let eventualBG = state.eventualBG {
                         Text(
                             "⇢ " + numberFormatter.string(
@@ -457,18 +474,20 @@ extension Home {
         }
 
         @ViewBuilder private func bottomPanel(_ geo: GeometryProxy) -> some View {
+            let colorIcon: Color = (colorScheme == .dark ? Color.white : Color.black).opacity(0.9)
+
             ZStack {
                 Rectangle().fill(Color.gray.opacity(0.2)).frame(height: 50 + geo.safeAreaInsets.bottom)
 
-                HStack {
+                HStack(alignment: .bottom) {
                     Button { state.showModal(for: .addCarbs) }
                     label: {
                         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                            Image("carbs")
+                            Image("carbs1")
                                 .renderingMode(.template)
                                 .resizable()
-                                .frame(width: 24, height: 24)
-                                .foregroundColor(.loopYellow)
+                                .frame(width: 30, height: 30)
+//                                .foregroundColor(.loopYellow)
                                 .padding(8)
                             if let carbsReq = state.carbsRequired {
                                 Text(numberFormatter.string(from: carbsReq as NSNumber)!)
@@ -478,28 +497,36 @@ extension Home {
                                     .background(Capsule().fill(Color.red))
                             }
                         }
-                    }.buttonStyle(.borderless)
-                    Spacer()
-                    Button { state.showModal(for: .addTempTarget) }
-                    label: {
-                        Image("target")
-                            .renderingMode(.template)
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .padding(8)
                     }
-                    .foregroundColor(.loopGreen)
+                    .foregroundColor(colorIcon)
                     .buttonStyle(.borderless)
                     Spacer()
-                    Button { state.showModal(for: .bolus(waitForSuggestion: false)) }
+                    Button {
+                        state.showModal(for: .bolus(
+                            waitForSuggestion: true
+                        ))
+                    }
                     label: {
                         Image("bolus")
                             .renderingMode(.template)
                             .resizable()
-                            .frame(width: 24, height: 24)
+                            .frame(width: 30, height: 30)
+//                            .foregroundColor(.insulin)
                             .padding(8)
                     }
-                    .foregroundColor(.insulin)
+                    .foregroundColor(colorIcon)
+                    .buttonStyle(.borderless)
+                    Spacer()
+                    Button { state.showModal(for: .addTempTarget) }
+                    label: {
+                        Image("target1")
+                            .renderingMode(.template)
+                            .resizable()
+                            .frame(width: 30, height: 30)
+//                            .foregroundColor(.loopGreen)
+                            .padding(8)
+                    }
+                    .foregroundColor(colorIcon)
                     .buttonStyle(.borderless)
                     Spacer()
                     if state.allowManualTemp {
@@ -508,46 +535,53 @@ extension Home {
                             Image("bolus1")
                                 .renderingMode(.template)
                                 .resizable()
-                                .frame(width: 24, height: 24)
+//                                .foregroundColor(.basal)
+                                .frame(width: 30, height: 30)
                                 .padding(8)
                         }
-                        .foregroundColor(.insulin)
+                        .foregroundColor(colorIcon)
                         .buttonStyle(.borderless)
                         Spacer()
                     }
-                    Spacer()
-                    Button(
-                        action: {},
-                        label: { Image(systemName: "chart.xyaxis.line")
-                            .font(.system(size: 24))
-                            .padding(8)
+
+                    // overide profiles
+//                    Button {
+//                        state.showModal(for: .overrideProfilesConfig)
+//                    } label: {
+//                        Image(systemName: "person")
+//                            .font(.system(size: 30, weight: .light))
+//                            .padding(8)
+//                    }
+//                    .foregroundColor(colorIcon)
+//                    .buttonStyle(.borderless)
+//                    Spacer()
+
+                    Image("statistics")
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(8)
+//                        .foregroundColor(.uam)
+                        .onTapGesture { state.showModal(for: .statistics) }
+                        .onLongPressGesture {
+                            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                            impactHeavy.impactOccurred()
+                            state.showModal(for: .autoisf)
                         }
-                    )
-                    .foregroundColor(.loopYellow)
-                    .buttonStyle(.borderless)
-                    .simultaneousGesture(
-                        LongPressGesture()
-                            .onEnded { _ in
-                                state.showModal(for: .autoisf)
-                            }
-                    )
-                    .highPriorityGesture(
-                        TapGesture()
-                            .onEnded { _ in
-                                state.showModal(for: .statistics)
-                            }
-                    )
+                        .foregroundColor(colorIcon)
+                        .buttonStyle(.borderless)
 
                     Spacer()
                     Button { state.showModal(for: .settings) }
                     label: {
-                        Image("settings1")
+                        Image("settings")
                             .renderingMode(.template)
                             .resizable()
-                            .frame(width: 24, height: 24)
+//                                .foregroundColor(.secondary)
+                            .frame(width: 30, height: 30)
                             .padding(8)
                     }
-                    .foregroundColor(.loopGray)
+                    .foregroundColor(colorIcon)
                     .buttonStyle(.borderless)
                 }
                 .padding(.horizontal, 24)
@@ -562,7 +596,7 @@ extension Home {
                     infoPanel
                     mainChart
                     legendPanel
-                    profiles(geo)
+//                    profiles(geo)
                     bottomPanel(geo)
                 }
                 .edgesIgnoringSafeArea(.vertical)
