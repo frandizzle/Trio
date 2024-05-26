@@ -327,16 +327,16 @@ extension Home {
 //                        Text("BG")
 //                            .font(.system(size: 12, weight: .bold)).foregroundColor(.loopGreen)
 //                    }
-                    Group {
+                    if let eventualBG = state.eventualBG {
                         Text(
-                            "TDD " + (numberFormatter.string(from: (state.suggestion?.tdd ?? 0) as NSNumber) ?? "0")
-                        ).font(.system(size: 12, weight: .bold)).foregroundColor(.insulin)
-                        Text(
-                            "ytd. " + (numberFormatter.string(from: (state.suggestion?.tddytd ?? 0) as NSNumber) ?? "0")
-                        ).font(.system(size: 12, weight: .regular)).foregroundColor(.insulin)
+                            "⇢ " + numberFormatter.string(
+                                from: (state.units == .mmolL ? eventualBG.asMmolL : Decimal(eventualBG)) as NSNumber
+                            )!
+                        )
+                        .font(.system(size: 12, weight: .bold)).foregroundColor(.secondary)
+                        Text(" | ").foregroundColor(.secondary)
+                            .font(.system(size: 12, weight: .light))
                     }
-                    Text(" | ").foregroundColor(.secondary)
-                        .font(.system(size: 12, weight: .light))
                     Group {
                         Circle().fill(Color.insulin).frame(width: 8, height: 8)
                         Text("IOB")
@@ -359,17 +359,17 @@ extension Home {
                     }
                     Text(" | ").foregroundColor(.secondary)
                         .font(.system(size: 12, weight: .light))
-                    if let eventualBG = state.eventualBG {
+                    Group {
                         Text(
-                            "⇢ " + numberFormatter.string(
-                                from: (state.units == .mmolL ? eventualBG.asMmolL : Decimal(eventualBG)) as NSNumber
-                            )!
-                        )
-                        .font(.system(size: 12, weight: .bold)).foregroundColor(.secondary)
+                            "TDD " + (numberFormatter.string(from: (state.suggestion?.tdd ?? 0) as NSNumber) ?? "0")
+                        ).font(.system(size: 12, weight: .bold)).foregroundColor(.insulin)
+                        Text(
+                            "ytd. " + (numberFormatter.string(from: (state.suggestion?.tddytd ?? 0) as NSNumber) ?? "0")
+                        ).font(.system(size: 12, weight: .regular)).foregroundColor(.insulin)
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .padding([.bottom], 20)
+                .padding([.vertical], 8)
             }
         }
 
@@ -474,8 +474,7 @@ extension Home {
         }
 
         @ViewBuilder private func bottomPanel(_ geo: GeometryProxy) -> some View {
-            let colorIcon: Color = (colorScheme == .dark ? Color.white : Color.black).opacity(0.9)
-
+            let colorIcon: Color = (colorScheme == .dark ? Color.loopGray : Color.black).opacity(0.9)
             ZStack {
                 Rectangle().fill(Color.gray.opacity(0.2)).frame(height: 50 + geo.safeAreaInsets.bottom)
 
@@ -585,7 +584,7 @@ extension Home {
                     .buttonStyle(.borderless)
                 }
                 .padding(.horizontal, 24)
-                .padding(.bottom, geo.safeAreaInsets.bottom)
+                .padding(.bottom, geo.safeAreaInsets.bottom - 10)
             }
         }
 
@@ -593,8 +592,10 @@ extension Home {
             GeometryReader { geo in
                 VStack(spacing: 0) {
                     header(geo)
+                    Divider().background(Color.gray)
                     infoPanel
                     mainChart
+                    Divider().background(Color.gray)
                     legendPanel
 //                    profiles(geo)
                     bottomPanel(geo)
@@ -607,7 +608,7 @@ extension Home {
             .ignoresSafeArea(.keyboard)
             .popup(isPresented: isStatusPopupPresented, alignment: .top, direction: .top) {
                 VStack {
-                    Rectangle().opacity(0).frame(height: 25)
+                    Rectangle().opacity(0).frame(height: 85)
                     popup
                         .padding()
                         .background(
