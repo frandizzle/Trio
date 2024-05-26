@@ -34,9 +34,10 @@ extension AddTempTarget {
                 return
             }
             var lowTarget = low
+            var highTarget = lowTarget
 
             if viewPercantage {
-                lowTarget = Decimal(round(Double(computeTarget())))
+                hbt = computeHBT()
                 coredataContext.performAndWait {
                     let saveToCoreData = TempTargets(context: self.coredataContext)
                     saveToCoreData.id = UUID().uuidString
@@ -56,7 +57,6 @@ extension AddTempTarget {
                     try? coredataContext.save()
                 }
             }
-            var highTarget = lowTarget
 
             if units == .mmolL, !viewPercantage {
                 lowTarget = Decimal(round(Double(lowTarget.asMgdL)))
@@ -174,18 +174,6 @@ extension AddTempTarget {
         func removePreset(id: String) {
             presets = presets.filter { $0.id != id }
             storage.storePresets(presets)
-        }
-
-        func computeTarget() -> Decimal {
-            var ratio = Decimal(percentage / 100)
-            let c = Decimal(hbt - 100)
-            var target = (c / ratio) - c + 100
-
-            if c * (c + target - 100) <= 0 {
-                ratio = maxValue
-                target = (c / ratio) - c + 100
-            }
-            return Decimal(Double(target))
         }
 
         func computeHBT() -> Double {
