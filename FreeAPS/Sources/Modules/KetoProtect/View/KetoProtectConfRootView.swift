@@ -1,7 +1,7 @@
 import SwiftUI
 import Swinject
 
-extension AutoISFConf {
+extension KetoConf {
     struct RootView: BaseView {
         let resolver: Resolver
         @StateObject var state = StateModel()
@@ -19,34 +19,17 @@ extension AutoISFConf {
                 Section {
                     VStack(alignment: .leading, spacing: 15) {
                         HStack {
-                            Toggle("Activate autoISF", isOn: $state.autoisf)
+                            Toggle("Activate KetoProtect", isOn: $state.ketoProtect)
                         }
                         .padding(.bottom, 2)
-                        if !state.autoisf {
-                            VStack(alignment: .leading) {
-                                Text(
-                                    "autoISF allows to adapt the insulin sensitivity factor (ISF) in the following scenarios of glucose behaviour:"
-                                )
-                                BulletList(
-                                    listItems:
-                                    [
-                                        "accelerating/decelerating blood glucose",
-                                        "blood glucose levels according to a predefined polygon, like a Sigmoid",
-                                        "postprandial (after meal) glucose rise",
-                                        "blood glucose plateaus above target"
-                                    ],
-                                    listItemSpacing: 10
-                                )
-                            }
-                            // .padding(10)
-                            Text("It can also adapt SMB delivery settings.")
+                        if !state.ketoProtect {
                             Text(
-                                "Read up on it at:\nhttps://github.com/ga-zelle/autoISF\nHit View Code to access all help documents!\niAPS version of autoISF does not include ActivityTracking."
+                                "Ketoacidosis protection will apply a small configurable Temp Basal Rate always or if certain conditions arise instead of a Zero temp!\nThe feature exists because in special cases a person could get ketoacidosis from 0% TBR. The idea is derived from sport. There could be problems when a basal rate of 0% ran for several hours. Muscles in particular could shut off.\nThis feature enables a small safety TBR to reduce the ketoacidosis risk. Without the Variable Protection that safety TBR is always applied. The idea behind the variable protection strategy is that the safety TBR is only applied if sum of basal-IOB and bolus-IOB falls negatively below the value of the current basal rate."
                             )
                         }
                     }
                 } header: { Text("Enable") }
-                if state.autoisf {
+                if state.ketoProtect {
                     ForEach(state.sections.indexed(), id: \.1.id) { sectionIndex, section in
                         Section(header: Text(section.displayName)) {
                             ForEach(section.fields.indexed(), id: \.1.id) { fieldIndex, field in
@@ -87,7 +70,7 @@ extension AutoISFConf {
                 }
             }
             .onAppear(perform: configureView)
-            .navigationTitle("autoISF Configuration")
+            .navigationTitle("Ketoacidosis Protection Configuration")
             .navigationBarTitleDisplayMode(.automatic)
             .alert(item: $infoButtonPressed) { infoButton in
                 Alert(

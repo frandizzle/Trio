@@ -36,6 +36,8 @@ enum Screen: Identifiable, Hashable {
     case statisticsConfig
     case calibrations
     case autoISFConf
+    case B30Conf
+    case KetoConfig
 
     var id: Int { String(reflecting: self).hashValue }
 }
@@ -111,6 +113,10 @@ extension Screen {
             Calibrations.RootView(resolver: resolver)
         case .autoISFConf:
             AutoISFConf.RootView(resolver: resolver)
+        case .B30Conf:
+            AIMIB30Conf.RootView(resolver: resolver)
+        case .KetoConfig:
+            KetoConf.RootView(resolver: resolver)
         }
     }
 

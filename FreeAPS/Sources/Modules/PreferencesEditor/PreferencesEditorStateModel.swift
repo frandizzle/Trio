@@ -506,7 +506,6 @@ extension PreferencesEditor {
                     displayName: NSLocalizedString("OpenAPS targets settings", comment: "OpenAPS targets settings"),
                     fields: targetSettings
                 ),
-
                 FieldSection(
                     displayName: NSLocalizedString("OpenAPS other settings", comment: "OpenAPS other settings"),
                     fields: otherSettings
