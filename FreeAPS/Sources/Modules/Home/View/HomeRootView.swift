@@ -559,7 +559,7 @@ extension Home {
             .navigationTitle("Home")
             .navigationBarHidden(true)
             .ignoresSafeArea(.keyboard)
-            .popup(isPresented: state.isStatusPopupPresented, alignment: .top, direction: .top) {
+            .popup(isPresented: isStatusPopupPresented, alignment: .top, direction: .top) {
                 VStack {
                     Rectangle().opacity(0).frame(height: 25)
                     popup
@@ -574,7 +574,7 @@ extension Home {
                         )
                         // .opacity(0.8)
                         .onTapGesture {
-                            state.isStatusPopupPresented = false
+                            isStatusPopupPresented = false
                         }
                         .gesture(
                             DragGesture(minimumDistance: 10, coordinateSpace: .local)
