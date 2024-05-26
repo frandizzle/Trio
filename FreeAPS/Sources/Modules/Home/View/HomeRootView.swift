@@ -515,17 +515,31 @@ extension Home {
                         .buttonStyle(.borderless)
                         Spacer()
                     }
-                    Button { state.showModal(for: .statistics)
-                    }
-                    label: {
-                        Image(systemName: "chart.xyaxis.line")
-                            .renderingMode(.template)
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .padding(8)
-                    }
-                    .foregroundColor(.purple)
+                    .foregroundColor(colorIcon)
                     .buttonStyle(.borderless)
+                    Spacer()
+                    Button(
+                        action: {},
+                        label: { Image(systemName: "chart.xyaxis.line")
+                            .font(.system(size: 24))
+                            .padding(8)
+                        }
+                    )
+                    .foregroundColor(colorIcon)
+                    .buttonStyle(.borderless)
+                    .simultaneousGesture(
+                        LongPressGesture()
+                            .onEnded { _ in
+                                state.showModal(for: .autoisf)
+                            }
+                    )
+                    .highPriorityGesture(
+                        TapGesture()
+                            .onEnded { _ in
+                                state.showModal(for: .statistics)
+                            }
+                    )
+
                     Spacer()
                     Button { state.showModal(for: .settings) }
                     label: {
