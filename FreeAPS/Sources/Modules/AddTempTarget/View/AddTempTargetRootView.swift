@@ -25,6 +25,17 @@ extension AddTempTarget {
 
         var body: some View {
             Form {
+                if state.storage?.current() != nil {
+                    Section {
+                        Button { state.cancel() }
+                        label: { Text("Cancel current TempTarget") }
+                            .disabled(state.storage?.current() == nil)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .buttonStyle(BorderlessButtonStyle())
+                            .tint(.red)
+                    }
+                }
+
                 if !state.presets.isEmpty {
                     Section(header: Text("Presets")) {
                         ForEach(state.presets) { preset in
@@ -126,9 +137,7 @@ extension AddTempTarget {
 
                 Section {
                     Button { state.enact() }
-                    label: { Text("Enact") }
-                    Button { state.cancel() }
-                    label: { Text("Cancel Temp Target") }
+                    label: { Text("Start") }
                 }
             }
             .popover(isPresented: $isPromtPresented) {
