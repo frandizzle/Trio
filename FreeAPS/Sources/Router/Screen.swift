@@ -30,12 +30,11 @@ enum Screen: Identifiable, Hashable {
     case iconConfig
     case overrideProfilesConfig
     case snooze
+    case watch
     case statistics
     case autoisf
-    case watch
     case statisticsConfig
     case calibrations
-    case dynamicISF
     case autoISFConf
 
     var id: Int { String(reflecting: self).hashValue }

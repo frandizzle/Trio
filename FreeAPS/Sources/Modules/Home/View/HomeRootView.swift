@@ -515,8 +515,6 @@ extension Home {
                         .buttonStyle(.borderless)
                         Spacer()
                     }
-                    .foregroundColor(colorIcon)
-                    .buttonStyle(.borderless)
                     Spacer()
                     Button(
                         action: {},
@@ -525,7 +523,7 @@ extension Home {
                             .padding(8)
                         }
                     )
-                    .foregroundColor(colorIcon)
+                    .foregroundColor(.loopYellow)
                     .buttonStyle(.borderless)
                     .simultaneousGesture(
                         LongPressGesture()

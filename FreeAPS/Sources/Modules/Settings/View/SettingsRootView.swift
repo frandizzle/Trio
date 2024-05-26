@@ -15,7 +15,6 @@ extension Settings {
             Form {
                 Section {
                     Toggle("Closed loop", isOn: $state.closedLoop)
-                }
                 } header: {
                     Text(
                         "iAPS v\(state.versionNumber) (\(state.buildNumber))\nBranch: \(state.branch)\n\(state.copyrightNotice) "
@@ -37,9 +36,7 @@ extension Settings {
 
                 Section {
                     Text("UI/UX Settings").navigationLink(to: .statisticsConfig, from: self)
-                    Text("Bolus Calculator").navigationLink(to: .bolusCalculatorConfig, from: self)
                     Text("Nightscout").navigationLink(to: .nighscoutConfig, from: self)
-
                     NavigationLink(destination: TidepoolStartView(state: state)) {
                         Text("Tidepool")
                     }
