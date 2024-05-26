@@ -30,9 +30,9 @@
 	path = LibreTransmitter
 	url = https://github.com/LoopKit/LibreTransmitter.git
 	branch = main
-[submodule "MinimedKit"]
-	path = MinimedKit
-	url = https://github.com/LoopKit/MinimedKit.git
 [submodule "TidepoolService"]
 	path = TidepoolService
 	url = https://github.com/LoopKit/TidepoolService.git
+[submodule "MinimedKit"]
+	path = MinimedKit
+	url = https://github.com/LoopKit/MinimedKit.git
