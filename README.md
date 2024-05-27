@@ -14,7 +14,7 @@ Trio continues to leverage a variety of frameworks from the DIY looping communit
 
 $${\color{green}I \space will \space switch \space permanently \space from \space iAPS \space to \space this \space Trio \space based \space fork,}$$
 
-$${\color{green}ultimatly \space there \space is \space more \space cooperation, \space discussion, \space talent \space and \space very \space importantly \space better \space vibes \space in \space the \space community.}$$ 
+$${\color{green}ultimatly \space there \space is \space more \space cooperation, \space discussion, \space talent \space and \space very \space importantly \space better \space vibes \space in \space the \space community.}$$
 
 Tai is based on dev from the original [Trio repo](https://github.com/nightscout/trio) and includes my implementation of [autoISF by ga-zelle](https://github.com/T-o-b-i-a-s/AndroidAPS) for AAPS and some other extra features. autoISF is off by default.
 
@@ -32,11 +32,8 @@ To use it, it needs 2 conditions besides setting all preferences:
 * Setting a TT with a specific adjustable target level.
 * A bolus above a specified level, which results in a drastically increased Temp Basal Rate for a short time. If one cancels the TT, also the TBR will cease.
 
-## To download this repo:
 
-You can either use the Build Script or you can run each command manually.
-
-### Command Line Interface (CLI):
+# Installation
 
 In Terminal, `cd` to the folder where you want your download to reside, change `<branch>` in the command below to the branch you want to download (ie. `tai` or `dev-tai`), and press `return`.
 
@@ -98,13 +95,7 @@ TODO: Add link and status graphic: Crowdin Project for translation of Trio (not 
 
 # Support
 
-[FCL & autoISF Discord](https://discord.gg/KUa8Nf2eeU)
-
-[Trio Facebook Group](https://m.facebook.com/groups/1351938092206709/)
-
-[Loop and Learn Facebook Group](https://m.facebook.com/groups/LOOPandLEARN/)
-
-[Looped Facebook Group](https://m.facebook.com/groups/TheLoopedGroup/)
+Not a lot, only some enthusiasts at [FCL & autoISF Discord](https://discord.gg/KUa8Nf2eeU)
 
 # Contribute
 
