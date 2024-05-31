@@ -58,10 +58,10 @@ xed .
 Instructions:
 
 For main branch:
-* https://github.com/nightscout/Trio/blob/tai/fastlane/testflight.md
+* https://github.com/mountrcg/Trio/blob/Tai/fastlane/testflight.md
 
 For dev branch:
-* https://github.com/nightscout/Trio/blob/dev-tai/fastlane/testflight.md
+* https://github.com/mountrcg/Trio/blob/dev-Tai/fastlane/testflight.md
 
 Instructions in greater detail, but not Trio-specific:
 * https://loopkit.github.io/loopdocs/gh-actions/gh-overview/
