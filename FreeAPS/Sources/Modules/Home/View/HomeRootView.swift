@@ -101,19 +101,6 @@ extension Home {
         var cobIobView: some View {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-//                    Text("COB").font(.caption2).foregroundColor(.secondary)
-                    Image("premeal")
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width: 12, height: 12)
-                        .foregroundColor(.loopYellow)
-                    Text(
-                        (numberFormatter.string(from: (state.suggestion?.cob ?? 0) as NSNumber) ?? "0") +
-                            NSLocalizedString(" g", comment: "gram of carbs")
-                    )
-                    .font(.footnote).fontWeight(.bold)
-                }.frame(alignment: .top)
-                HStack {
 //                    Text("IOB").font(.caption2).foregroundColor(.secondary)
                     Image("bolus1")
                         .renderingMode(.template)
@@ -126,6 +113,19 @@ extension Home {
                     )
                     .font(.footnote).fontWeight(.bold)
                 }.frame(alignment: .bottom)
+                HStack {
+//                    Text("COB").font(.caption2).foregroundColor(.secondary)
+                    Image("premeal")
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 12, height: 12)
+                        .foregroundColor(.loopYellow)
+                    Text(
+                        (numberFormatter.string(from: (state.suggestion?.cob ?? 0) as NSNumber) ?? "0") +
+                            NSLocalizedString(" g", comment: "gram of carbs")
+                    )
+                    .font(.footnote).fontWeight(.bold)
+                }.frame(alignment: .top)
             }
         }
 
