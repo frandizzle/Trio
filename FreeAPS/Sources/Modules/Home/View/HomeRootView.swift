@@ -322,43 +322,6 @@ extension Home {
         var legendPanel: some View {
             ZStack {
                 HStack(alignment: .center) {
-//                    Group {
-//                        Circle().fill(Color.loopGreen).frame(width: 8, height: 8)
-//                        Text("BG")
-//                            .font(.system(size: 12, weight: .bold)).foregroundColor(.loopGreen)
-//                    }
-                    if let eventualBG = state.eventualBG {
-                        Text(
-                            "⇢ " + numberFormatter.string(
-                                from: (state.units == .mmolL ? eventualBG.asMmolL : Decimal(eventualBG)) as NSNumber
-                            )!
-                        )
-                        .font(.system(size: 12, weight: .bold)).foregroundColor(.secondary)
-                        Text(" | ").foregroundColor(.secondary)
-                            .font(.system(size: 12, weight: .light))
-                    }
-                    Group {
-                        Circle().fill(Color.insulin).frame(width: 8, height: 8)
-                        Text("IOB")
-                            .font(.system(size: 12, weight: .bold)).foregroundColor(.insulin)
-                    }
-                    Group {
-                        Circle().fill(Color.zt).frame(width: 8, height: 8)
-                        Text("ZT")
-                            .font(.system(size: 12, weight: .bold)).foregroundColor(.zt)
-                    }
-                    Group {
-                        Circle().fill(Color.loopYellow).frame(width: 8, height: 8)
-                        Text("COB")
-                            .font(.system(size: 12, weight: .bold)).foregroundColor(.loopYellow)
-                    }
-                    Group {
-                        Circle().fill(Color.uam).frame(width: 8, height: 8)
-                        Text("UAM")
-                            .font(.system(size: 12, weight: .bold)).foregroundColor(.uam)
-                    }
-                    Text(" | ").foregroundColor(.secondary)
-                        .font(.system(size: 12, weight: .light))
                     Group {
                         Text(
                             "TDD " + (numberFormatter.string(from: (state.suggestion?.tdd ?? 0) as NSNumber) ?? "0")
@@ -366,6 +329,38 @@ extension Home {
                         Text(
                             "ytd. " + (numberFormatter.string(from: (state.suggestion?.tddytd ?? 0) as NSNumber) ?? "0")
                         ).font(.system(size: 12, weight: .regular)).foregroundColor(.insulin)
+                    }
+                    Text(" | ").foregroundColor(.secondary)
+                        .font(.system(size: 12, weight: .light))
+                    Group {
+                        Circle().fill(Color.zt).frame(width: 8, height: 8)
+                        Text("ZT")
+                            .font(.system(size: 12, weight: .bold)).foregroundColor(.zt)
+                    }
+                    Group {
+                        Circle().fill(Color.insulin).frame(width: 8, height: 8)
+                        Text("IOB")
+                            .font(.system(size: 12, weight: .bold)).foregroundColor(.insulin)
+                    }
+                    Group {
+                        Circle().fill(Color.uam).frame(width: 8, height: 8)
+                        Text("UAM")
+                            .font(.system(size: 12, weight: .bold)).foregroundColor(.uam)
+                    }
+                    Group {
+                        Circle().fill(Color.loopYellow).frame(width: 8, height: 8)
+                        Text("COB")
+                            .font(.system(size: 12, weight: .bold)).foregroundColor(.loopYellow)
+                    }
+                    if let eventualBG = state.eventualBG {
+                        Text(" | ").foregroundColor(.secondary)
+                            .font(.system(size: 12, weight: .light))
+                        Text(
+                            "⇢ " + numberFormatter.string(
+                                from: (state.units == .mmolL ? eventualBG.asMmolL : Decimal(eventualBG)) as NSNumber
+                            )!
+                        )
+                        .font(.system(size: 12, weight: .bold)).foregroundColor(.secondary)
                     }
                 }
                 .frame(maxWidth: .infinity)
