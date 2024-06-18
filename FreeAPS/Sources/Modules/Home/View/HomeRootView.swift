@@ -511,17 +511,31 @@ extension Home {
                     .foregroundColor(colorIcon)
                     .buttonStyle(.borderless)
                     Spacer()
-                    Button { state.showModal(for: .addTempTarget) }
-                    label: {
-                        Image("target1")
-                            .renderingMode(.template)
-                            .resizable()
-                            .frame(width: 30, height: 30)
-//                            .foregroundColor(.loopGreen)
-                            .padding(8)
-                    }
-                    .foregroundColor(colorIcon)
-                    .buttonStyle(.borderless)
+//                    Button { state.showModal(for: .addTempTarget) }
+//                    label: {
+//                        Image("target1")
+//                            .renderingMode(.template)
+//                            .resizable()
+//                            .frame(width: 30, height: 30)
+////                            .foregroundColor(.loopGreen)
+//                            .padding(8)
+//                    }
+//                    .foregroundColor(colorIcon)
+//                    .buttonStyle(.borderless)
+                    Image("target1")
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(8)
+//                        .foregroundColor(.loopGreen)
+                        .onTapGesture { state.showModal(for: .addTempTarget) }
+                        .onLongPressGesture {
+                            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                            impactHeavy.impactOccurred()
+                            state.showModal(for: .overrideProfilesConfig)
+                        }
+                        .foregroundColor(colorIcon)
+                        .buttonStyle(.borderless)
                     Spacer()
                     if state.allowManualTemp {
                         Button { state.showModal(for: .manualTempBasal) }
