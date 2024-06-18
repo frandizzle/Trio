@@ -517,7 +517,7 @@ extension Home {
 //                            .renderingMode(.template)
 //                            .resizable()
 //                            .frame(width: 30, height: 30)
-////                            .foregroundColor(.loopGreen)
+                    ////                            .foregroundColor(.loopGreen)
 //                            .padding(8)
 //                    }
 //                    .foregroundColor(colorIcon)

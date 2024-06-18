@@ -74,6 +74,7 @@ struct MainChartView: View {
     @State var didAppearTrigger = false
     @State private var glucoseDots: [CGRect] = []
     @State private var unSmoothedGlucoseDots: [CGRect] = []
+    @State private var manualGlucoseDots: [CGRect] = []
     @State private var predictionDots: [PredictionType: [CGRect]] = [:]
     @State private var bolusDots: [BolusInfo] = []
     @State private var bolusPath = Path()
@@ -290,6 +291,7 @@ struct MainChartView: View {
                     ManbolusView(fullSize: fullSize)
                     if smooth { unSmoothedGlucoseView(fullSize: fullSize) }
                     glucoseView(fullSize: fullSize)
+                    manualGlucoseView(fullSize: fullSize)
                     predictionsView(fullSize: fullSize)
                 }
                 timeLabelsView(fullSize: fullSize)
@@ -372,6 +374,32 @@ struct MainChartView: View {
             path.addLines(lines)
         }
         .stroke(Color.loopGray, lineWidth: 0.5)
+        .onChange(of: glucose) { _ in
+            update(fullSize: fullSize)
+        }
+        .onChange(of: didAppearTrigger) { _ in
+            update(fullSize: fullSize)
+        }
+        .onReceive(Foundation.NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            update(fullSize: fullSize)
+        }
+    }
+
+    private func manualGlucoseView(fullSize: CGSize) -> some View {
+        ZStack {
+            Path { path in
+                for rect in manualGlucoseDots {
+                    path.addEllipse(in: rect)
+                }
+            }
+            .fill(Color.loopRed)
+            Path { path in
+                for rect in manualGlucoseDots {
+                    path.addEllipse(in: rect)
+                }
+            }
+            .stroke(Color.primary, lineWidth: 0.5)
+        }
         .onChange(of: glucose) { _ in
             update(fullSize: fullSize)
         }
@@ -531,6 +559,7 @@ extension MainChartView {
         calculatePredictionDots(fullSize: fullSize, type: .uam)
         calculateGlucoseDots(fullSize: fullSize)
         calculateUnSmoothedGlucoseDots(fullSize: fullSize)
+        calculateManualGlucoseDots(fullSize: fullSize)
         calculateBolusDots(fullSize: fullSize)
         calculateManBolusDots(fullSize: fullSize)
         calculateCarbsDots(fullSize: fullSize)
@@ -542,7 +571,8 @@ extension MainChartView {
 
     private func calculateGlucoseDots(fullSize: CGSize) {
         calculationQueue.async {
-            let dots = glucose.concurrentMap { value -> CGRect in
+            let sgvs = glucose.filter { $0.type == "sgv" }
+            let dots = sgvs.concurrentMap { value -> CGRect in
                 let position = glucoseToCoordinate(value, fullSize: fullSize)
                 return CGRect(x: position.x - 2, y: position.y - 2, width: 4, height: 4)
             }
@@ -558,7 +588,8 @@ extension MainChartView {
 
     private func calculateUnSmoothedGlucoseDots(fullSize: CGSize) {
         calculationQueue.async {
-            let dots = glucose.concurrentMap { value -> CGRect in
+            let sgvs = glucose.filter { $0.type == "sgv" }
+            let dots = sgvs.concurrentMap { value -> CGRect in
                 let position = UnSmoothedGlucoseToCoordinate(value, fullSize: fullSize)
                 return CGRect(x: position.x - 2, y: position.y - 2, width: 4, height: 4)
             }
@@ -568,6 +599,23 @@ extension MainChartView {
             DispatchQueue.main.async {
                 glucoseYRange = range
                 unSmoothedGlucoseDots = dots
+            }
+        }
+    }
+
+    private func calculateManualGlucoseDots(fullSize: CGSize) {
+        calculationQueue.async {
+            let manuals = glucose.filter { $0.type == "Manual" }
+            let dots = manuals.concurrentMap { value -> CGRect in
+                let position = glucoseToCoordinate(value, fullSize: fullSize)
+                return CGRect(x: position.x - 2, y: position.y - 2, width: 6, height: 6)
+            }
+
+            let range = self.getGlucoseYRange(fullSize: fullSize)
+
+            DispatchQueue.main.async {
+                glucoseYRange = range
+                manualGlucoseDots = dots
             }
         }
     }
