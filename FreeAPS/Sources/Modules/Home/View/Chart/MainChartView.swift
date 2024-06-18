@@ -44,7 +44,7 @@ struct MainChartView: View {
         static let carbsScale: CGFloat = 0.3
         static let fpuScale: CGFloat = 2
         static let bolusOffSet: CGFloat = -1.5
-        static let ManbolusOffSet: CGFloat = -55
+        static let manBolusOffSet: CGFloat = -55
         static let carbsOffSet: CGFloat = 20
         static let carbMaxSize: CGFloat = 80
         static let bolusMaxSize: CGFloat = 16
@@ -78,8 +78,8 @@ struct MainChartView: View {
     @State private var predictionDots: [PredictionType: [CGRect]] = [:]
     @State private var bolusDots: [BolusInfo] = []
     @State private var bolusPath = Path()
-    @State private var ManbolusDots: [ManBolusInfo] = []
-    @State private var ManbolusPath = Path()
+    @State private var manBolusDots: [ManBolusInfo] = []
+    @State private var manBolusPath = Path()
     @State private var tempBasalPath = Path()
     @State private var regularBasalPath = Path()
     @State private var tempTargetsPath = Path()
@@ -288,7 +288,7 @@ struct MainChartView: View {
                     carbsView(fullSize: fullSize)
                     fpuView(fullSize: fullSize)
                     bolusView(fullSize: fullSize)
-                    ManbolusView(fullSize: fullSize)
+                    manBolusView(fullSize: fullSize)
                     if smooth { unSmoothedGlucoseView(fullSize: fullSize) }
                     glucoseView(fullSize: fullSize)
                     manualGlucoseView(fullSize: fullSize)
@@ -433,14 +433,14 @@ struct MainChartView: View {
         }
     }
 
-    private func ManbolusView(fullSize: CGSize) -> some View {
+    private func manBolusView(fullSize: CGSize) -> some View {
         ZStack {
-            ManbolusPath
+            manBolusPath
                 .fill(Color.red)
-            ManbolusPath
+            manBolusPath
                 .stroke(Color.primary, lineWidth: 0.5)
 
-            ForEach(ManbolusDots, id: \.rect.minX) { info -> AnyView in
+            ForEach(manBolusDots, id: \.rect.minX) { info -> AnyView in
                 let position = CGPoint(x: info.rect.midX, y: info.rect.minY - 8)
                 return Text(bolusFormatter.string(from: info.value as NSNumber)!).font(.caption2)
                     .position(position)
@@ -670,7 +670,7 @@ extension MainChartView {
                 let rect = CGRect(
                     x: center.x - size / 2,
                     y: center.y - size / 2 - 100,
-                    width: size / 2,
+                    width: size / 2.75,
                     height: size / 2
                 )
 
@@ -690,8 +690,8 @@ extension MainChartView {
                 }
             }
             DispatchQueue.main.async {
-                ManbolusDots = dots
-                ManbolusPath = path
+                manBolusDots = dots
+                manBolusPath = path
             }
         }
     }
