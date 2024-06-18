@@ -2470,6 +2470,12 @@
         }
       }
     },
+    "No active Override to cancel" : {
+
+    },
+    "No active TempTarget to cancel" : {
+
+    },
     "no adding carbs" : {
       "localizations" : {
         "de" : {
@@ -2632,45 +2638,8 @@
         }
       }
     },
-    "Override canceled" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Überschreibung abgebrochen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anulación cancelada"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Annulation du profil"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Annullamento dell'annullamento"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Opheffen geannuleerd"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Åsidosättande avbrutet"
-          }
-        }
-      }
+    "Override '%@' canceled" : {
+
     },
     "Override choice" : {
       "localizations" : {
@@ -3682,6 +3651,9 @@
         }
       }
     },
+    "TempTarget '%@' canceled" : {
+
+    },
     "TempTarget activated for %@" : {
       "localizations" : {
         "de" : {
@@ -3718,46 +3690,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "TempTarget aktiverat för %@"
-          }
-        }
-      }
-    },
-    "TempTarget canceled" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "TempTarget abgebrochen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "TempTarget cancelado"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cible temp annulée"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "TempTarget annullato"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "TempTarget geannuleerd"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "TempTarget avbruten"
           }
         }
       }
