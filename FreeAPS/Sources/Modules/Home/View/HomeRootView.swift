@@ -44,6 +44,18 @@ extension Home {
             return formatter
         }
 
+        private var glucoseFormatter: NumberFormatter {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 0
+            if state.units == .mmolL {
+                formatter.minimumFractionDigits = 1
+                formatter.maximumFractionDigits = 1
+            }
+            formatter.roundingMode = .halfUp
+            return formatter
+        }
+
         private var fetchedTargetFormatter: NumberFormatter {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
@@ -288,7 +300,7 @@ extension Home {
 
                 if let tempTargetString = tempTargetString {
                     Text(tempTargetString)
-                        .font(.caption)
+                        .font(.system(size: 12))
                         .foregroundColor(.secondary)
                 }
 
@@ -303,6 +315,26 @@ extension Home {
 
                 if state.closedLoop, state.settingsManager.preferences.maxIOB == 0 {
                     Text("Max IOB: 0").font(.callout).foregroundColor(.orange).padding(.trailing, 20)
+                }
+
+                if let currentISF = state.isf {
+                    Text("ISF:")
+                        .foregroundColor(.secondary)
+                        .font(.system(size: 12))
+                        .fixedSize()
+                    if state.units == .mmolL {
+                        Text(
+                            glucoseFormatter
+                                .string(from: currentISF.asMmolL as NSNumber) ?? " "
+                        )
+                        .font(.system(size: 12, weight: .bold)).fixedSize()
+                    } else {
+                        Text(
+                            glucoseFormatter
+                                .string(from: currentISF as NSNumber) ?? " "
+                        )
+                        .font(.system(size: 12, weight: .bold)).fixedSize()
+                    }
                 }
 
                 if let progress = state.bolusProgress {
@@ -617,7 +649,7 @@ extension Home {
             .ignoresSafeArea(.keyboard)
             .popup(isPresented: isStatusPopupPresented, alignment: .top, direction: .top) {
                 VStack {
-                    Rectangle().opacity(0).frame(height: 85)
+                    Rectangle().opacity(0).frame(height: 95)
                     popup
                         .padding()
                         .background(
