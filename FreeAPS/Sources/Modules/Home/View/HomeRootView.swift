@@ -388,7 +388,7 @@ extension Home {
                         Text(" | ").foregroundColor(.secondary)
                             .font(.system(size: 12, weight: .light))
                         Text(
-                            "⇢ " + numberFormatter.string(
+                            "⇢ " + glucoseFormatter.string(
                                 from: (state.units == .mmolL ? eventualBG.asMmolL : Decimal(eventualBG)) as NSNumber
                             )!
                         )
