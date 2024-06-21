@@ -1,8 +1,9 @@
-oref0 branch: dev-TaiAutoISF - git version: 683fb98
+oref0 branch: dev-TaiAutoISF - git version: abec9f6
 
 Last commits:
-683fb98 typo in rT.reason
-7343cc4 rT.variables in mg/dL
+abec9f6 stats for boluscalc
+9d7bff6 fix insulinForManualBolus
+9875931 rT.variables in mg/dL
 ad80f5a Trio cp webpack
 d21f87e use created_at for meal history
 d041dae introduce absolute keto safety TBR
@@ -30,4 +31,3 @@ ea262e8 TDD popup
 b858dd9 take out old absolute IOB Threshold check
 0961dc0 show TDD in popup
 67038fc fix IOB Threshold logic
-fa4a448 middleware into popup
