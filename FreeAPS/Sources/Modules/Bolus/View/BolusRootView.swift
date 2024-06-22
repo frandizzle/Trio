@@ -148,14 +148,13 @@ extension Bolus {
                     }
                     HStack {
                         Text("ISF").foregroundColor(.secondary)
-                        let isf = state.units == .mmolL ? state.target.asMmolL : state.isf
+                        let isf = state.units == .mmolL ? state.isf.asMmolL : state.isf
                         Text(isf.formatted(.number.grouping(.never).rounded().precision(.fractionLength(fractionDigits))))
                         Text(state.units.rawValue + NSLocalizedString("/U", comment: "/Insulin unit"))
                             .foregroundColor(.secondary)
                     }
                     HStack {
-                        Text("ISF:")
-                        Text("Insulin Sensitivity")
+                        Text("ISF - Insulin Sensitivity")
                     }.foregroundColor(.secondary).italic()
                     if state.percentage != 100 {
                         HStack {
