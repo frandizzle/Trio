@@ -52,7 +52,7 @@ extension Settings {
                 } header: { Text("Services") }
 
                 Section {
-                    Text("Preferences").navigationLink(to: .preferencesEditor, from: self)
+//                    Text("Preferences").navigationLink(to: .preferencesEditor, from: self)   // is done in oref under Algorithm
                     Text("Pump Settings").navigationLink(to: .pumpSettingsEditor, from: self)
                     Text("Meal Settings").navigationLink(to: .fpuConfig, from: self)
                     Text("Basal Profile").navigationLink(to: .basalProfileEditor, from: self)
