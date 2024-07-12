@@ -10,6 +10,12 @@ final class SimpleLogReporter: IssueReporter {
         return dateFormatter
     }
 
+    var logdateFormatter: DateFormatter {
+        let logdateFormatter = DateFormatter()
+        logdateFormatter.dateFormat = "yyyy-MM-dd"
+        return logdateFormatter
+    }
+
     func setup() {}
 
     func setUserIdentifier(_: String?) {}
@@ -21,6 +27,9 @@ final class SimpleLogReporter: IssueReporter {
     func log(_ category: String, _ message: String, file: String, function: String, line: UInt) {
         let now = Date()
         let startOfDay = Calendar.current.startOfDay(for: now)
+        let logName = logdateFormatter.string(from: now)
+        let twoDaysPrior = Calendar.current.date(byAdding: .day, value: -2, to: now)!
+        let prevLogName = logdateFormatter.string(from: twoDaysPrior)
 
         if !fileManager.fileExists(atPath: SimpleLogReporter.logDir) {
             try? fileManager.createDirectory(
@@ -30,37 +39,35 @@ final class SimpleLogReporter: IssueReporter {
             )
         }
 
-        if !fileManager.fileExists(atPath: SimpleLogReporter.logFile) {
+        if !fileManager.fileExists(atPath: SimpleLogReporter.logFile(name: logName)) {
             createFile(at: startOfDay)
-        } else {
-            if let attributes = try? fileManager.attributesOfItem(atPath: SimpleLogReporter.logFile),
-               let creationDate = attributes[.creationDate] as? Date, creationDate < startOfDay
-            {
-                try? fileManager.removeItem(atPath: SimpleLogReporter.logFilePrev)
-                try? fileManager.moveItem(atPath: SimpleLogReporter.logFile, toPath: SimpleLogReporter.logFilePrev)
-                createFile(at: startOfDay)
-            }
+            try? fileManager.removeItem(atPath: SimpleLogReporter.logFilePrev(name: prevLogName))
+            debug(.service, "Removing log file from 2 days ago: \(SimpleLogReporter.logFilePrev(name: prevLogName))")
         }
 
         let logEntry = "\(dateFormatter.string(from: now)) [\(category)] \(file.file) - \(function) - \(line) - \(message)\n"
         let data = logEntry.data(using: .utf8)!
-        try? data.append(fileURL: URL(fileURLWithPath: SimpleLogReporter.logFile))
+        try? data.append(fileURL: URL(fileURLWithPath: SimpleLogReporter.logFile(name: logName)))
     }
 
     private func createFile(at date: Date) {
-        fileManager.createFile(atPath: SimpleLogReporter.logFile, contents: nil, attributes: [.creationDate: date])
+        let now = Date()
+        let logName = logdateFormatter.string(from: now)
+        fileManager.createFile(atPath: SimpleLogReporter.logFile(name: logName), contents: nil, attributes: [.creationDate: date])
     }
 
-    static var logFile: String {
-        getDocumentsDirectory().appendingPathComponent("logs/log.txt").path
+    static func logFile(name: String) -> String {
+        let fullpath = getDocumentsDirectory().appendingPathComponent("logs/\(name).log").path
+        return fullpath
     }
 
     static var logDir: String {
         getDocumentsDirectory().appendingPathComponent("logs").path
     }
 
-    static var logFilePrev: String {
-        getDocumentsDirectory().appendingPathComponent("logs/log_prev.txt").path
+    static func logFilePrev(name: String) -> String {
+        let fullpath = getDocumentsDirectory().appendingPathComponent("logs/\(name).log").path
+        return fullpath
     }
 
     static func getDocumentsDirectory() -> URL {
