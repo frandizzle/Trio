@@ -12,10 +12,6 @@ Trio continues to leverage a variety of frameworks from the DIY looping communit
 
 ## autoISF
 
-$${\color{green}I \space will \space switch \space permanently \space from \space iAPS \space to \space this \space Trio \space based \space fork,}$$
-
-$${\color{green}ultimatly \space there \space is \space more \space cooperation, \space discussion, \space talent \space and \space very \space importantly \space better \space vibes \space in \space the \space community.}$$
-
 Tai is based on dev from the original [Trio repo](https://github.com/nightscout/trio) and includes my implementation of [autoISF by ga-zelle](https://github.com/T-o-b-i-a-s/AndroidAPS) for AAPS and some other extra features. autoISF is off by default.
 
 autoISF adjusts ISF depending on 4 different effects in glucose behaviour that autoISF checks and reacts to:
