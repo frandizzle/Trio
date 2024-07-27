@@ -42,7 +42,7 @@ struct PumpView: View {
 
                 if let reservoir = reservoir {
                     HStack {
-                        Image(systemName: "drop.fill")
+                        Image(systemName: "drop.halffull")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(maxHeight: 10)

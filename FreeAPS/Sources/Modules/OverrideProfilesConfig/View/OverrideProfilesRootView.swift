@@ -107,7 +107,7 @@ extension OverrideProfilesConfig {
                     if !state._indefinite {
                         HStack {
                             Text("Duration")
-                            DecimalTextField("0", value: $state.duration, formatter: formatter, cleanInput: false)
+                            TextFieldWithToolBar(text: $state.duration, placeholder: "0", numberFormatter: formatter)
                             Text("minutes").foregroundColor(.secondary)
                         }
                     }
@@ -120,7 +120,7 @@ extension OverrideProfilesConfig {
                     if state.override_target {
                         HStack {
                             Text("Target Glucose")
-                            DecimalTextField("0", value: $state.target, formatter: glucoseFormatter, cleanInput: false)
+                            TextFieldWithToolBar(text: $state.target, placeholder: "0", numberFormatter: glucoseFormatter)
                             Text(state.units.rawValue).foregroundColor(.secondary)
                         }
                     }
@@ -144,12 +144,12 @@ extension OverrideProfilesConfig {
                             if state.smbIsScheduledOff {
                                 HStack {
                                     Text("First Hour SMBs are Off (24 hours)")
-                                    DecimalTextField("0", value: $state.start, formatter: formatter, cleanInput: false)
+                                    TextFieldWithToolBar(text: $state.start, placeholder: "0", numberFormatter: formatter)
                                     Text("hour").foregroundColor(.secondary)
                                 }
                                 HStack {
                                     Text("First Hour SMBs are Resumed (24 hours)")
-                                    DecimalTextField("0", value: $state.end, formatter: formatter, cleanInput: false)
+                                    TextFieldWithToolBar(text: $state.end, placeholder: "0", numberFormatter: formatter)
                                     Text("hour").foregroundColor(.secondary)
                                 }
                             }
@@ -173,22 +173,12 @@ extension OverrideProfilesConfig {
                         }
                         HStack {
                             Text("SMB Minutes")
-                            DecimalTextField(
-                                "0",
-                                value: $state.smbMinutes,
-                                formatter: formatter,
-                                cleanInput: false
-                            )
+                            TextFieldWithToolBar(text: $state.smbMinutes, placeholder: "0", numberFormatter: formatter)
                             Text("minutes").foregroundColor(.secondary)
                         }
                         HStack {
                             Text("UAM SMB Minutes")
-                            DecimalTextField(
-                                "0",
-                                value: $state.uamMinutes,
-                                formatter: formatter,
-                                cleanInput: false
-                            )
+                            TextFieldWithToolBar(text: $state.uamMinutes, placeholder: "0", numberFormatter: formatter)
                             Text("minutes").foregroundColor(.secondary)
                         }
                     }

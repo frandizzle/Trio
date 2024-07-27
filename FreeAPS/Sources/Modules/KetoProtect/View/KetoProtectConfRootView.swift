@@ -57,10 +57,10 @@ extension KetoConf {
                                             })
                                             Text(field.displayName)
                                         }
-                                        DecimalTextField(
-                                            "0",
-                                            value: self.$state.sections[sectionIndex].fields[fieldIndex].decimalValue,
-                                            formatter: formatter
+                                        TextFieldWithToolBar(
+                                            text: self.$state.sections[sectionIndex].fields[fieldIndex].decimalValue,
+                                            placeholder: "0",
+                                            numberFormatter: formatter
                                         )
                                     }
                                 }
