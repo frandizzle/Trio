@@ -317,6 +317,17 @@ extension Home {
                     Text("Max IOB: 0").font(.callout).foregroundColor(.orange).padding(.trailing, 20)
                 }
 
+                if let progress = state.bolusProgress {
+                    Text("Bolusing")
+                        .font(.system(size: 12, weight: .bold)).foregroundColor(.insulin)
+                    ProgressView(value: Double(progress))
+                        .progressViewStyle(BolusProgressViewStyle())
+                        .padding(.trailing, 8)
+                        .onTapGesture {
+                            state.cancelBolus()
+                        }
+                }
+
                 if let currentISF = state.isf {
                     Text("ISF:")
                         .foregroundColor(.secondary)
@@ -335,17 +346,6 @@ extension Home {
                         )
                         .font(.system(size: 12, weight: .bold)).fixedSize()
                     }
-                }
-
-                if let progress = state.bolusProgress {
-                    Text("Bolusing")
-                        .font(.system(size: 12, weight: .bold)).foregroundColor(.insulin)
-                    ProgressView(value: Double(progress))
-                        .progressViewStyle(BolusProgressViewStyle())
-                        .padding(.trailing, 8)
-                        .onTapGesture {
-                            state.cancelBolus()
-                        }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: 30)
