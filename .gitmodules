@@ -1,40 +1,18 @@
-[submodule "LoopKit"]
-	path = LoopKit
-	url = https://github.com/loopandlearn/LoopKit.git
-	branch = trio
-[submodule "CGMBLEKit"]
-	path = CGMBLEKit
-	url = https://github.com/loopandlearn/CGMBLEKit.git
-	branch = trio
-[submodule "dexcom-share-client-swift"]
-	path = dexcom-share-client-swift
-	url = https://github.com/loopandlearn/dexcom-share-client-swift.git
-	branch = trio
-[submodule "RileyLinkKit"]
-	path = RileyLinkKit
-	url = https://github.com/loopandlearn/RileyLinkKit
-	branch = trio
-[submodule "OmniBLE"]
-	path = OmniBLE
-	url = https://github.com/loopandlearn/OmniBLE.git
-	branch = trio
-[submodule "G7SensorKit"]
-	path = G7SensorKit
-	url = https://github.com/loopandlearn/G7SensorKit.git
-	branch = trio
-[submodule "OmniKit"]
-	path = OmniKit
-	url = https://github.com/loopandlearn/OmniKit.git
-	branch = trio
-[submodule "MinimedKit"]
-	path = MinimedKit
-	url = https://github.com/loopandlearn/MinimedKit.git
-	branch = trio
-[submodule "LibreTransmitter"]
-	path = LibreTransmitter
-	url = https://github.com/loopandlearn/LibreTransmitter.git
-	branch = trio
-[submodule "TidepoolService"]
-	path = TidepoolService
-	url = https://github.com/loopandlearn/TidepoolService.git
-	branch = trio
+[submodule "ios/LoopKit"]
+	path = ios/LoopKit
+	url = https://github.com/kingst/LoopKit
+[submodule "ios/OmniBLE"]
+	path = ios/OmniBLE
+	url = https://github.com/kingst/OmniBLE.git
+[submodule "ios/MKRingProgressView"]
+	path = ios/MKRingProgressView
+	url = https://github.com/kingst/MKRingProgressView.git
+[submodule "ios/G7SensorKit"]
+	path = ios/G7SensorKit
+	url = https://github.com/kingst/G7SensorKit.git
+[submodule "ios/CGMBLEKit"]
+	path = ios/CGMBLEKit
+	url = https://github.com/kingst/CGMBLEKit.git
+[submodule "ios/dexcom-share-client-swift"]
+	path = ios/dexcom-share-client-swift
+	url = https://github.com/kingst/libre-share-client-swift.git
